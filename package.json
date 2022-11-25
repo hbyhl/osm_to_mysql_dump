@@ -1,7 +1,7 @@
 {
-  "name" : "osm_to_mysql_dump",
-  "version" : "1.0.0",
-  "keywords" : [
+  "name": "osm_to_mysql_dump",
+  "version": "1.0.0",
+  "keywords": [
     "utility",
     "commandline",
     "nodeJS",
@@ -9,27 +9,28 @@
     "OpenStreetMap"
   ],
   "author": {
-    "name" : "Kai Koch",
-    "email" : "kai.koch@gmail.com",
-    "url" : "https://github.com/kai-koch"
+    "name": "Kai Koch",
+    "email": "kai.koch@gmail.com",
+    "url": "https://github.com/kai-koch"
   },
-  "contributors" : [],
-  "dependencies" : {
-    "htmlparser2": "latest",
+  "contributors": [],
+  "dependencies": {
+    "dependencies": "0.0.1",
+    "htmlparser2": "^8.0.1",
     "sqlstring": "latest"
   },
-  "description" : "NodeJS command-line tool to make a mysql dump of a given .osm-file (openstreetmap - xml-format)",
+  "description": "NodeJS command-line tool to make a mysql dump of a given .osm-file (openstreetmap - xml-format)",
   "main": "osm_to_mysql_dump.js",
-  "devDependencies" : {
-        "utest" : "latest"
-    },
-  "scripts" : {
-    "test" : "node ./test/test.js"
+  "devDependencies": {
+    "utest": "latest"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/kai-koch/osm_to_mysql_dump.git"
+  "scripts": {
+    "test": "node ./test/test.js"
   },
-  "license" : "MIT",
-  "preferGlobal" : true
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kai-koch/osm_to_mysql_dump.git"
+  },
+  "license": "MIT",
+  "preferGlobal": true
 }
