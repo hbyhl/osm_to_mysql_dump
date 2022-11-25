@@ -1,377 +1,123 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Erstellungszeit: 21. Mai 2017 um 11:40
--- Server-Version: 10.1.16-MariaDB
--- PHP-Version: 5.6.24
+/*
+ Navicat Premium Data Transfer
 
-SET FOREIGN_KEY_CHECKS=0;
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+ Source Server         : 127.0.0.1
+ Source Server Type    : MySQL
+ Source Server Version : 50728
+ Source Host           : localhost:3306
+ Source Schema         : osm
 
---
--- Datenbank: `osm`
---
+ Target Server Type    : MySQL
+ Target Server Version : 50728
+ File Encoding         : 65001
 
--- --------------------------------------------------------
+ Date: 25/11/2022 19:24:54
+*/
 
---
--- Tabellenstruktur für Tabelle `members_nodes`
---
--- Erstellt am: 21. Mai 2017 um 04:31
---
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS `members_nodes`;
-CREATE TABLE `members_nodes` (
-  `node_id` bigint(20) NOT NULL,
-  `relation_id` bigint(20) NOT NULL,
-  `role` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONEN DER TABELLE `members_nodes`:
---   `node_id`
---       `nodes` -> `id`
---   `relation_id`
---       `relations` -> `id`
---
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `members_relations`
---
--- Erstellt am: 21. Mai 2017 um 03:49
---
-
-DROP TABLE IF EXISTS `members_relations`;
-CREATE TABLE `members_relations` (
-  `relation_id2` bigint(20) NOT NULL,
-  `relation_id` bigint(20) NOT NULL,
-  `role` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONEN DER TABELLE `members_relations`:
---   `relation_id`
---       `relations` -> `id`
---   `relation_id2`
---       `relations` -> `id`
---
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `members_ways`
---
--- Erstellt am: 21. Mai 2017 um 03:50
---
-
-DROP TABLE IF EXISTS `members_ways`;
-CREATE TABLE `members_ways` (
-  `way_id` bigint(20) NOT NULL,
-  `relation_id` bigint(20) NOT NULL,
-  `role` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONEN DER TABELLE `members_ways`:
---   `relation_id`
---       `relations` -> `id`
---   `way_id`
---       `ways` -> `id`
---
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `nodes`
---
--- Erstellt am: 21. Mai 2017 um 05:54
---
-
+-- ----------------------------
+-- Table structure for nodes
+-- ----------------------------
 DROP TABLE IF EXISTS `nodes`;
 CREATE TABLE `nodes` (
-  `id` bigint(20) NOT NULL,
-  `lat` double NOT NULL,
-  `lon` double NOT NULL,
-  `visible` tinyint(1) DEFAULT NULL,
-  `version` bigint(20) DEFAULT NULL,
-  `changeset` bigint(20) DEFAULT NULL,
-  `uid` bigint(20) DEFAULT NULL,
-  `user` varchar(50) DEFAULT NULL,
-  `timestamp` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                         `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                         `lat` double NOT NULL,
+                         `lon` double NOT NULL,
+                         `version` bigint(20) DEFAULT NULL,
+                         `timestamp` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                         `timestamp2` datetime DEFAULT NULL,
+                         PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10188037928 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- RELATIONEN DER TABELLE `nodes`:
---
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `nodes_tags`
---
--- Erstellt am: 21. Mai 2017 um 03:53
---
-
+-- ----------------------------
+-- Table structure for nodes_tags
+-- ----------------------------
 DROP TABLE IF EXISTS `nodes_tags`;
 CREATE TABLE `nodes_tags` (
-  `node_id` bigint(20) NOT NULL,
-  `k` varchar(50) NOT NULL,
-  `v` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                              `node_id` bigint(20) NOT NULL,
+                              `k` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+                              `v` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                              PRIMARY KEY (`id`),
+                              KEY `id` (`node_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1466901 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- RELATIONEN DER TABELLE `nodes_tags`:
---   `node_id`
---       `nodes` -> `id`
---
+-- ----------------------------
+-- Table structure for relation_member
+-- ----------------------------
+DROP TABLE IF EXISTS `relation_member`;
+CREATE TABLE `relation_member` (
+                                   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                   `relation_id` bigint(20) NOT NULL,
+                                   `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                                   `ref` bigint(20) DEFAULT NULL,
+                                   `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                                   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `relations`
---
--- Erstellt am: 21. Mai 2017 um 08:33
---
-
+-- ----------------------------
+-- Table structure for relations
+-- ----------------------------
 DROP TABLE IF EXISTS `relations`;
 CREATE TABLE `relations` (
-  `id` bigint(20) NOT NULL,
-  `visible` tinyint(1) DEFAULT NULL,
-  `version` bigint(20) DEFAULT NULL,
-  `changeset` bigint(20) DEFAULT NULL,
-  `uid` bigint(20) DEFAULT NULL,
-  `user` varchar(50) DEFAULT NULL,
-  `timestamp` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                             `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                             `version` bigint(20) DEFAULT NULL,
+                             `timestamp2` datetime DEFAULT NULL,
+                             `timestamp` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                             PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- RELATIONEN DER TABELLE `relations`:
---
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `relations_tags`
---
--- Erstellt am: 21. Mai 2017 um 03:55
---
-
+-- ----------------------------
+-- Table structure for relations_tags
+-- ----------------------------
 DROP TABLE IF EXISTS `relations_tags`;
 CREATE TABLE `relations_tags` (
-  `relation_id` bigint(20) NOT NULL,
-  `k` varchar(50) NOT NULL,
-  `v` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                                  `relation_id` bigint(20) NOT NULL,
+                                  `k` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                  `v` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                  PRIMARY KEY (`id`),
+                                  KEY `id` (`relation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- RELATIONEN DER TABELLE `relations_tags`:
---   `relation_id`
---       `relations` -> `id`
---
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `ways`
---
--- Erstellt am: 21. Mai 2017 um 07:41
---
-
+-- ----------------------------
+-- Table structure for ways
+-- ----------------------------
 DROP TABLE IF EXISTS `ways`;
 CREATE TABLE `ways` (
-  `id` bigint(20) NOT NULL,
-  `visible` tinyint(1) DEFAULT NULL,
-  `version` bigint(20) DEFAULT NULL,
-  `changeset` bigint(20) DEFAULT NULL,
-  `uid` bigint(20) DEFAULT NULL,
-  `user` varchar(50) DEFAULT NULL,
-  `timestamp` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                        `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                        `version` bigint(20) DEFAULT NULL,
+                        `timestamp2` datetime DEFAULT NULL,
+                        `timestamp` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                        PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- RELATIONEN DER TABELLE `ways`:
---
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `ways_nodes`
---
--- Erstellt am: 21. Mai 2017 um 03:58
---
-
+-- ----------------------------
+-- Table structure for ways_nodes
+-- ----------------------------
 DROP TABLE IF EXISTS `ways_nodes`;
 CREATE TABLE `ways_nodes` (
-  `node_id` bigint(20) NOT NULL,
-  `way_id` bigint(20) NOT NULL,
-  `sequence` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                              `node_id` bigint(20) NOT NULL,
+                              `way_id` bigint(20) NOT NULL,
+                              `sequence` int(11) NOT NULL,
+                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                              PRIMARY KEY (`id`),
+                              KEY `nodeid` (`node_id`,`way_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- RELATIONEN DER TABELLE `ways_nodes`:
---   `node_id`
---       `nodes` -> `id`
---   `way_id`
---       `ways` -> `id`
---
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `ways_tags`
---
--- Erstellt am: 21. Mai 2017 um 03:57
---
-
+-- ----------------------------
+-- Table structure for ways_tags
+-- ----------------------------
 DROP TABLE IF EXISTS `ways_tags`;
 CREATE TABLE `ways_tags` (
-  `way_id` bigint(20) NOT NULL,
-  `k` varchar(50) NOT NULL,
-  `v` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                             `way_id` bigint(20) NOT NULL,
+                             `k` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+                             `v` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                             `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                             PRIMARY KEY (`id`),
+                             KEY `id` (`way_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- RELATIONEN DER TABELLE `ways_tags`:
---   `way_id`
---       `ways` -> `id`
---
-
---
--- Indizes der exportierten Tabellen
---
-
---
--- Indizes für die Tabelle `members_nodes`
---
-ALTER TABLE `members_nodes`
-  ADD KEY `wayid` (`node_id`,`relation_id`);
-
---
--- Indizes für die Tabelle `members_relations`
---
-ALTER TABLE `members_relations`
-  ADD KEY `wayid` (`relation_id2`,`relation_id`);
-
---
--- Indizes für die Tabelle `members_ways`
---
-ALTER TABLE `members_ways`
-  ADD KEY `wayid` (`way_id`,`relation_id`);
-
---
--- Indizes für die Tabelle `nodes`
---
-ALTER TABLE `nodes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `nodes_tags`
---
-ALTER TABLE `nodes_tags`
-  ADD KEY `id` (`node_id`);
-
---
--- Indizes für die Tabelle `relations`
---
-ALTER TABLE `relations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `relations_tags`
---
-ALTER TABLE `relations_tags`
-  ADD KEY `id` (`relation_id`);
-
---
--- Indizes für die Tabelle `ways`
---
-ALTER TABLE `ways`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `ways_nodes`
---
-ALTER TABLE `ways_nodes`
-  ADD KEY `nodeid` (`node_id`,`way_id`);
-
---
--- Indizes für die Tabelle `ways_tags`
---
-ALTER TABLE `ways_tags`
-  ADD KEY `id` (`way_id`);
-
-
---
--- Metadaten
---
-USE `phpmyadmin`;
-
---
--- Metadaten für members_nodes
---
-
---
--- Metadaten für members_relations
---
-
---
--- Metadaten für members_ways
---
-
---
--- Metadaten für nodes
---
-
---
--- Metadaten für nodes_tags
---
-
---
--- Metadaten für relations
---
-
---
--- Metadaten für relations_tags
---
-
---
--- Metadaten für ways
---
-
---
--- Metadaten für ways_nodes
---
-
---
--- Metadaten für ways_tags
---
-
---
--- Metadaten für osm
---
-
---
--- Daten für Tabelle `pma__relation`
---
-
-INSERT INTO `pma__relation` VALUES
-('osm', 'members_nodes', 'node_id', 'osm', 'nodes', 'id'),
-('osm', 'members_nodes', 'relation_id', 'osm', 'relations', 'id'),
-('osm', 'members_relations', 'relation_id', 'osm', 'relations', 'id'),
-('osm', 'members_relations', 'relation_id2', 'osm', 'relations', 'id'),
-('osm', 'members_ways', 'relation_id', 'osm', 'relations', 'id'),
-('osm', 'members_ways', 'way_id', 'osm', 'ways', 'id'),
-('osm', 'nodes_tags', 'node_id', 'osm', 'nodes', 'id'),
-('osm', 'relations_tags', 'relation_id', 'osm', 'relations', 'id'),
-('osm', 'ways_nodes', 'node_id', 'osm', 'nodes', 'id'),
-('osm', 'ways_nodes', 'way_id', 'osm', 'ways', 'id'),
-('osm', 'ways_tags', 'way_id', 'osm', 'ways', 'id');
-SET FOREIGN_KEY_CHECKS=1;
-COMMIT;
+SET FOREIGN_KEY_CHECKS = 1;

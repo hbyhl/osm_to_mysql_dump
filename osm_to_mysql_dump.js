@@ -1,7 +1,5 @@
 var inputFilename = process.argv[2];
 // added BOM (byte order mark) required to process the output on windows. :-/
-console.log("\ufeffSET NAMES 'UTF8';");
-console.log("SET FOREIGN_KEY_CHECKS = 0;\nSET UNIQUE_CHECKS = 0;");
 console.log(
     '/* input-file: ' + inputFilename + ' */'
 );
